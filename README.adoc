@@ -1,0 +1,4 @@
+= Meta repository for Foacs website backend
+
+This is the https://github.com/mateodelnorte/meta[meta] repository for the Foacs website backend services. It helps to organized multi-repo backend as a mono-repo.
+
