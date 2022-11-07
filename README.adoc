@@ -1,4 +1,56 @@
 = Meta repository for Foacs website backend
-
 This is the https://github.com/mateodelnorte/meta[meta] repository for the Foacs website backend services. It helps to organized multi-repo backend as a mono-repo.
 
+== How to use this repo ?
+This repo is the parent repo of all sub-repos. It is used by meta to aggregate all of them together.
+
+You can perform git command across all sub-repos from this one. 
+
+In order to use meta, #you should install it#:
+[source, bash]
+----
+$~ > npm i -g meta
+----
+
+=== Getting started
+The following comment helps you to clone all "Foacs backend" repos in one go:
+[source, bash]
+----
+$~ > meta git clone https://github.com/Foacs/website-backend-meta
+----
+
+Then you can perform the npm install across all repos:
+[source, bash]
+----
+$~/backend-meta/ > meta exec "npm i"
+----
+
+You can build all the services by using:
+[source, bash]
+----
+$~/backend-meta/ > meta exec "npm run build"
+----
+
+
+==== Tips
+* You can perform any git command across all sub-repos by adding `meta` in front of the git command
+
+[source, bash]
+----
+$~/backend-meta/ > meta git status
+$~/backend-meta/ > meta git fetch
+$~/backend-meta/ > meta git push
+$~/backend-meta/ > meta git pull
+----
+
+* You can execute any command across all sub-repos with `meta exec` command
+
+[source, bash]
+----
+$~/backend-meta/ > meta exec "ls -la"
+----
+
+== What are the sub-repo
+The sub-repos, for Foacs website backend, are:
+
+* https://github.com/Foacs/website-backend-user[website-backend-user]
