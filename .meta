@@ -1,3 +1,5 @@
 {
-  "projects": {}
+  "projects": {
+    "users": "https://github.com/Foacs/website-backend-user"
+  }
 }
