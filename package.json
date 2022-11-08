@@ -2,19 +2,24 @@
   "name": "foacs-website-be-meta",
   "version": "1.0.0",
   "description": "Meta repo for Foacs website backend",
-  "main": "index.ts",
-  "scripts": {
-    "test": "echo \"Nothing to test here\"",
-    "build": "echo \"Noting to build here\""
+  "keywords": [
+    "backend",
+    "lambda",
+    "aws-lambda",
+    "rest",
+    "rest-service"
+  ],
+  "license": "CECILL-2.1",
+  "bugs": {
+    "url": "https://github.com/Foacs/website-backend-meta/issues"
   },
+  "homepage": "https://github.com/Foacs/website-backend-meta#readme",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Foacs/website-backend-meta.git"
   },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Foacs/website-backend-meta/issues"
-  },
-  "homepage": "https://github.com/Foacs/website-backend-meta#readme"
+  "scripts": {
+    "test": "echo \"Nothing to test here\"",
+    "build": "echo \"Noting to build here\""
+  }
 }
