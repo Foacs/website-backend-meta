@@ -1,4 +1,7 @@
 = Meta repository for Foacs website backend
+:toc:
+
+== Description
 This is the https://github.com/mateodelnorte/meta[meta] repository for the Foacs website backend services. It helps to organized multi-repo backend as a mono-repo.
 
 == How to use this repo ?
@@ -31,8 +34,7 @@ You can build all the services by using:
 $~/backend-meta/ > meta exec "npm run build"
 ----
 
-
-==== Tips
+=== Tips
 * You can perform any git command across all sub-repos by adding `meta` in front of the git command
 
 [source, bash]
@@ -49,6 +51,32 @@ $~/backend-meta/ > meta git pull
 ----
 $~/backend-meta/ > meta exec "ls -la"
 ----
+
+== Environment & pipelines
+It exists 4 environments each corresponding to a step of backend development.
+
+=== Development environment https://dev.api.foacs.fr/[link]
+This environment is used during the development of the backend, *it is not designed to be stable*. Its usage should be strictly reserved for development.
+
+* It is deployed with the pipeline: https://github.com/Foacs/website-backend-meta/actions/workflows/deploy_dev.yaml[deploy development]
+
+=== Testing environment https://test.api.foacs.fr/[link]
+This environment is used during the testing of the backend, *it is not designed to be stable*. Its usage should be strictly reserved for testing.
+
+* It is deployed with the pipeline: https://github.com/Foacs/website-backend-meta/actions/workflows/deploy_test.yaml[deploy testing]
+
+=== Staging environment https://stage.api.foacs.fr/[link]
+This environment is used as a copy of production. *It is designed to be stable* but it allows downtime.
+
+* It is deployed with the pipeline: https://github.com/Foacs/website-backend-meta/actions/workflows/deploy_stage.yaml[deploy staging]
+** The deployment requires a approval
+
+=== Production environment https://api.foacs.fr/[link]
+This environment is the production. *It is designed to be stable* but it does not allow downtime.
+
+* It is deployed with the pipeline: https://github.com/Foacs/website-backend-meta/actions/workflows/deploy_prod.yaml[deploy production]
+** The deployment requires a approval
+** The deployment waits 15 minutes before it starts
 
 == What are the sub-repo
 The sub-repos, for Foacs website backend, are:
