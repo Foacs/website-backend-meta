@@ -1,4 +1,28 @@
 {
   "AWSTemplateFormatVersion": "2010-09-09",
-  "Resources": {}
+  "Parameters": {
+    "Env": {
+      "Type": "String",
+      "Description": "The target environment name"
+    }
+  },
+  "Resources": {
+    "API": {
+      "Type": "AWS::ApiGatewayV2::Api",
+      "Properties": {
+        "Name": {
+          "Fn::Join": [
+            "",
+            [
+              "Foacs-website-API-",
+              {
+                "Ref": "Env"
+              }
+            ]
+          ]
+        },
+        "ProtocolType": "HTTP"
+      }
+    }
+  }
 }
