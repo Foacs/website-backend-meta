@@ -48,3 +48,10 @@ jobs:
         run: |
           echo "----Sync template file to S3 bucket----"
           aws s3 mv ./template.cfn.json s3://foacs-website-deploys/staging/template.cfn.json
+
+      - name: Deploy backend stack
+        id: backend-stack
+        run: >
+          aws cloudformation create-stack 
+          --stack-name ${{ steps.env-name.outputs.environment }}
+          --template-url https://foacs-website-deploys.s3.eu-west-3.amazonaws.com/development/template.cfn.json
