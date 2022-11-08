@@ -6,13 +6,13 @@ on:
         required: true
         default: 'eu-west-3'
 
-name: deploy_dev
+name: deploy_stage
 
 jobs:
   deploy:
     name: Deploy the structure on AWS
     runs-on: ubuntu-latest
-    environment: development
+    environment: staging
     outputs:
       env-name: ${{ steps.env-name.outputs.environment }}
     steps:
@@ -25,7 +25,7 @@ jobs:
           REPO: ${{ github.repository }}
         run: |
           ENVIRONMENT=`echo $REPO | tr "/" "-"`
-          ENVIRONMENT="${ENVIRONMENT}-development"
+          ENVIRONMENT="${ENVIRONMENT}-staging"
           echo "Environment name: $ENVIRONMENT"
           echo "environment=$ENVIRONMENT" >> $GITHUB_OUTPUT
 
@@ -47,4 +47,4 @@ jobs:
       - name: Upload CloudFormation template to S3
         run: |
           echo "----Sync template file to S3 bucket----"
-          aws s3 mv ./template.cfn.json s3://foacs-website-deploys/development/template.cfn.json
+          aws s3 mv ./template.cfn.json s3://foacs-website-deploys/staging/template.cfn.json
