@@ -1,0 +1,41 @@
+AWSTemplateFormatVersion: 2010-09-09
+
+Parameters:
+  Env:
+    Type: String
+  Region:
+    Type: String
+  BucketName:
+    Type: String
+
+Resources:
+  RestApi:
+    Type: AWS::ApiGateway::RestApi
+    Properties:
+      EndpointConfiguration:
+        Types:
+          - REGIONAL
+      Name: Foacs-website-be
+      Description: Backend for foacs website
+  Deployment:
+    Type: AWS::ApiGateway::Deployment
+    DependsOn:
+      - UserResource
+    Properties:
+      RestApiId: !Ref RestApi
+  Stage:
+    Type: AWS::ApiGateway::Stage
+    Properties:
+      DeploymentId: !Ref Deployment
+      RestApiId: !Ref RestApi
+      StageName: !Ref Env
+  UserResource:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: !Sub https://${BucketName}.s3.${Region}.amazonaws.com/${Env}/user/foacs-be-user.cfn.yml
+      Parameters:
+        Env: !Ref Env
+        Region: !Ref Region
+        BucketName: !Ref BucketName
+        RestApiId: !Ref RestApi
+        RootResourceId: !GetAtt RestApi.RootResourceId
