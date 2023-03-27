@@ -52,6 +52,15 @@ $~/backend-meta/ > meta git pull
 $~/backend-meta/ > meta exec "ls -la"
 ----
 
+== Project file structure
+The project's files are organized as follow:
+
+=== Infrastructure templates
+The template files for infrastructure definition are kept in folder `infrastructure` and its sub-folders.
+
+=== REST endpoint methods
+The source code for REST endpoints are kept in folder `src` and then a folder for each methods.
+
 == Environment & pipelines
 It exists 4 environments each corresponding to a step of backend development.
 

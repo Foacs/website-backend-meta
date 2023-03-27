@@ -15,49 +15,9 @@ env:
 
 jobs:
   deploy:
-    name: Deploy the structure on AWS
-    runs-on: ubuntu-latest
-    environment: production
-    outputs:
-      env-name: ${{ steps.env-name.outputs.environment }}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Configure environment name
-        id: env-name
-        env:
-          REPO: ${{ github.repository }}
-        run: |
-          ENVIRONMENT="Foacs-website-be"
-          ENVIRONMENT="${ENVIRONMENT}-${{ env.ENV_NAME }}"
-          echo "Environment name: $ENVIRONMENT"
-          echo "environment=$ENVIRONMENT" >> $GITHUB_OUTPUT
-
-      - name: Set up AWS CLI
-        run: |
-          echo "----Get aws cli----"
-          curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-          echo "----Unzip----"
-          unzip -q awscliv2.zip
-          echo "----Install----"
-          sudo ./aws/install --update 
-          echo "----Check aws----"
-          aws --version
-          echo "----Configure----"
-          aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws configure set default.region ${{ github.event.inputs.region }}
-
-      - name: Upload CloudFormation template to S3
-        run: |
-          echo "----Sync template file to S3 bucket----"
-          aws s3 mv ./template.cfn.json s3://${{ secrets.AWS_BUCKET_NAME }}/${{ env.ENV_NAME }}/template.cfn.json
-
-      - name: Deploy backend stack
-        id: backend-stack
-        run: >
-          aws cloudformation create-stack 
-          --stack-name ${{ steps.env-name.outputs.environment }}
-          --template-url https://${{ secrets.AWS_BUCKET_NAME }}.s3.${{ github.event.inputs.region }}.amazonaws.com/${{ env.ENV_NAME }}/template.cfn.json
-          --parameters ParameterKey=Env,ParameterValue=${{ env.ENV_NAME }}
+    name: Deploy to AWS - production
+    uses: ./.github/workflows/deploy.yaml
+    with:
+      environment: production
+      region: ${{ inputs.region }}
+    secrets: inherit
